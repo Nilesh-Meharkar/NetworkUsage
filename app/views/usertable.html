@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-xs-6">
+          <h3>Graph chart <small>Data usage</small></h3>
+          <canvas id="line" class="chart chart-line" chart-data="graphdata"
+                  chart-labels="labels" chart-legend="true" chart-series="graphseries"
+                  chart-click="onClick" >
+          </canvas>
+        </div>
+        <div class="col-xs-6">
+          <h3>Bar chart <small>Data usage</small> </h3>
+          <canvas id="bar" class="chart chart-bar"
+                  chart-data="data" chart-labels="labels">
+          </canvas>
+        </div>
+      </div>
+
+      <br />
+      <hr />
+      <br />
+
+      <div class="row">
+        <div class="col-xs-6">
+          <h3>User <small>Data usage</small></h3>
+          <div class="gridStyle" ng-grid="gridOptions1"></div>
+        </div>
+        <div class="col-xs-6">
+          <h3>BU <small>Data usage</small></h3>
+          <div class="gridStyle" ng-grid="gridOptions2"></div>
+        </div>
+      </div>
+
+    </div>
+
+  <br />
+  <br />
+
+  </body>
+
+
+</html>
