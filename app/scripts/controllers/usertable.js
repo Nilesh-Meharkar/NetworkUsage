@@ -73,8 +73,10 @@ angular.module('networkUsesApp')
 
 
 
+    // #######################  GRAPH CHART  #######################################################
+
     // Graph Chart Data
-    $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
+    $scope.graphlabels = ["January", "February", "March", "April", "May", "June", "July"];
     $scope.graphseries = ['TCP', 'UDP', 'Series X'];
     $scope.graphdata = [
       [65, 59, 80, 81, 56, 55, 40],
@@ -84,39 +86,58 @@ angular.module('networkUsesApp')
     $scope.onClick = function (points, evt) {
       console.log(points, evt);
 
-
-      /*
-      //Check onclick dummy
-      $scope.graphdata = [
-        [16, 59, 80, 81, 56, 55, 40],
-        [28, 48, 40, 19, 86, 27, 90],
-        [35, 59, 22, 31, 36, 25, 40]
-      ];
-    */
-
     };
 
 
-    // Bar Chart Data
-    $scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-    $scope.series = ['Series A'];
+    getGraphChartData();
 
-    $scope.data = [
-      [65, 59, 80, 81, 56, 55, 40]
-    ];
+    function getGraphChartData(){
+
+      var serviceObj = apiCalls.get_graph_data();
+      serviceObj.get(function(successresponse){
+        var graphlabels = [];
+        angular.forEach(successresponse.countVOs, function(value, key) {
+          graphlabels.push(value.count);
+        });
+        //$scope.graphlabels = graphlabels;
+        //$scope.graphdata = [barLabels];
+        console.log(successresponse.countVOs);
+      }, function(errorresponse){
+        console.log(errorresponse);
+      });
+
+    }
 
 
 
 
 
-    //######################################################################3
+    // ######################### GRAPH CHAR END ##############################################
+
+    //################################ BAR CHART ######################################3
+    //
+    //// Bar Chart Data
+    //$scope.barLabels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+    //$scope.series = ['Series A'];
+    //
+    //$scope.data = [
+    //  [65, 59, 80, 81, 56, 55, 40]
+    //];
 
 
+    getBarcharData();
 
-    function fn60sec() {
-      // runs every 60 sec and runs on init.
-      var serviceObj = apiCalls.get_videos();
-      serviceObj.all_videos(function(successresponse){
+    function getBarcharData(){
+      var serviceObj = apiCalls.get_bar_data();
+      serviceObj.get(function(successresponse){
+        var bardata = [];
+        $scope.barLabels = [];
+        angular.forEach(successresponse.countVOs, function(value, key) {
+          bardata.push(value.count);
+          $scope.barLabels.push("")
+        });
+        $scope.data = [bardata];
+        console.log(successresponse.countVOs);
         alert("success");
       }, function(errorresponse){
         alert("fails");
@@ -124,8 +145,22 @@ angular.module('networkUsesApp')
       });
     }
 
+
+
+    //########################### BAR CHART END ########################################3
+
+
+    //################################## Timer logic   ####################################3
+
+
+
+    function fn60sec() {
+      // runs every 60 sec and runs on init.
+      getBarcharData()
+    }
+
     // Timer details for 20 second
-    // var timer = setInterval(function() { fn60sec(); }, 2000);
+     var timer = setInterval(function() { fn60sec(); }, 60000);
 
 
     //To stop timer event we can use clear interval.

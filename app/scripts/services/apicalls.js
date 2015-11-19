@@ -20,7 +20,30 @@ angular.module('networkUsesApp')
             headers: {'Authorization': 'crittersupport.opensilo.co'}
           }
         });
+      },
+
+      get_bar_data: function(url_params){
+        return $resource("http://localhost:8080/loganalyzer-web/getBatchCounts/", url_params, {
+          get:{
+            method: "GET",
+            isArray: false
+            //, headers: {'Authorization': 'crittersupport.opensilo.co'}
+          }
+        });
+      },
+
+      get_graph_data: function(url_params){
+        return $resource("http://localhost:8080/loganalyzer-web/getBatchCounts/", url_params, {
+          get:{
+            method: "GET",
+            isArray: false
+            //, headers: {'Authorization': 'crittersupport.opensilo.co'}
+          }
+        });
       }
+
+
+
     }
 
 
